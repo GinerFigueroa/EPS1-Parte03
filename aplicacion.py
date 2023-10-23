@@ -28,7 +28,36 @@ def listar_productos():
             print("{:<20} {:<10.2f}".format(nombre, precio))
     else:
         print("No hay productos para mostrar.")
+        
+# Función para eliminar un producto por nombre
+def eliminar_producto():
+    if productos:
+        nombre_a_eliminar = input("Ingrese el nombre del producto que desea eliminar: ")
+        eliminados = [producto for producto in productos if producto['nombre'] == nombre_a_eliminar]
+        if eliminados:
+            productos[:] = [producto for producto in productos if producto['nombre'] != nombre_a_eliminar]
+            print(f"{len(eliminados)} producto(s) con el nombre '{nombre_a_eliminar}' ha(n) sido eliminado(s).")
+        else:
+            print(f"No se encontraron productos con el nombre '{nombre_a_eliminar}'.")
+    else:
+        print("No hay productos para eliminar.")
 
+# Función para editar un producto por nombre
+def editar_producto():
+    if productos:
+        nombre_a_editar = input("Ingrese el nombre del producto que desea editar: ")
+        for producto in productos:
+            if producto['nombre'] == nombre_a_editar:
+                nuevo_nombre = input("Ingrese el nuevo nombre del producto: ")
+                nuevo_precio = float(input("Ingrese el nuevo precio del producto: "))
+                producto['nombre'] = nuevo_nombre
+                producto['precio'] = nuevo_precio
+                print("Producto editado correctamente.")
+                return
+        print(f"No se encontró un producto con el nombre '{nombre_a_editar}'.")
+    else:
+        print("No hay productos para editar.")
+        
 # Insertar 10 productos reales
 productos.extend([
     {"nombre": "Polo", "precio": 10.99},
@@ -51,9 +80,9 @@ while True:
     if opcion == "1":
         registrar_producto()
     elif opcion == "2":
-        eliminar()
+        eliminar_producto()
     elif opcion == "3":
-        editar()
+        editar_producto()
     elif opcion == "4":
         listar_productos()
     elif opcion == "5":
