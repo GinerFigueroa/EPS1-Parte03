@@ -1,5 +1,5 @@
-# Definir una lista para almacenar registros
-registros = []
+# Definir una lista para almacenar los productos
+productos = []
 
 # Función para mostrar el menú
 def mostrar_menu():
@@ -10,51 +10,38 @@ def mostrar_menu():
     print("4. Listar")
     print("5. Salir")
 
-# Función para registrar un elemento
-def registrar():
-    nombre = input("Ingrese el nombre: ")
-    registros.append(nombre)
+# Función para registrar un producto
+def registrar_producto():
+    nombre = input("Ingrese el nombre del producto: ")
+    precio = float(input("Ingrese el precio del producto: "))
+    productos.append({"nombre": nombre, "precio": precio})
     print(f"{nombre} ha sido registrado.")
 
-# Función para eliminar un elemento
-def eliminar():
-    if registros:
-        print("Registros disponibles:")
-        for i, nombre in enumerate(registros):
-            print(f"{i + 1}. {nombre}")
-        opcion = int(input("Seleccione el número del registro que desea eliminar: "))
-        if 1 <= opcion <= len(registros):
-            eliminado = registros.pop(opcion - 1)
-            print(f"{eliminado} ha sido eliminado.")
-        else:
-            print("Opción inválida.")
+# Función para listar los productos
+def listar_productos():
+    if productos:
+        print("\nListado de Productos:")
+        print("{:<20} {:<10}".format("Nombre", "Precio"))
+        for producto in productos:
+            nombre = producto['nombre']
+            precio = producto['precio']
+            print("{:<20} {:<10.2f}".format(nombre, precio))
     else:
-        print("No hay registros para eliminar.")
+        print("No hay productos para mostrar.")
 
-# Función para editar un elemento
-def editar():
-    if registros:
-        print("Registros disponibles:")
-        for i, nombre in enumerate(registros):
-            print(f"{i + 1}. {nombre}")
-        opcion = int(input("Seleccione el número del registro que desea editar: "))
-        if 1 <= opcion <= len(registros):
-            nuevo_nombre = input("Ingrese el nuevo nombre: ")
-            registros[opcion - 1] = nuevo_nombre
-            print("Registro editado correctamente.")
-        else:
-            print("Opción inválida.")
-    else:
-        print("No hay registros para editar.")
-
-# Función para listar los registros
-def listar():
-    if registros:
-        print("Registros disponibles:")
-        for i, nombre in enumerate(registros):
-            print(f"{i + 1}. {nombre}")
-    else:
-        print("No hay registros para mostrar.")
+# Insertar 10 productos reales
+productos.extend([
+    {"nombre": "Polo", "precio": 10.99},
+    {"nombre": "Pantalon", "precio": 20.49},
+    {"nombre": "Camisa", "precio": 15.99},
+    {"nombre": "Corbata", "precio": 5.99},
+    {"nombre": "Blusa", "precio": 30.00},
+    {"nombre": "Medias", "precio": 12.99},
+    {"nombre": "Gorra", "precio": 8.49},
+    {"nombre": "Camiseta", "precio": 25.00},
+    {"nombre": "Cordones", "precio": 17.99},
+    {"nombre": "Zapatilla", "precio": 22.50}
+])
 
 # Bucle principal
 while True:
@@ -62,13 +49,13 @@ while True:
     opcion = input("Seleccione una opción (1/2/3/4/5): ")
 
     if opcion == "1":
-        registrar()
+        registrar_producto()
     elif opcion == "2":
         eliminar()
     elif opcion == "3":
         editar()
     elif opcion == "4":
-        listar()
+        listar_productos()
     elif opcion == "5":
         print("¡Hasta luego!")
         break
